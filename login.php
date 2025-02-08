@@ -38,7 +38,8 @@ if (isLoggedIn()) {
                                           </div>
                                     </div>
                                     <div class="col-12">
-                                          <div class="form-group d-flex justify-content-end">
+                                          <div class="form-group d-flex justify-content-between">
+                                                <a href="./register.php" class="btn btn-primary">Register</a>
                                                 <button type="submit" name="submit" class="btn btn-success">LOGIN</button>
                                           </div>
                                     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2025 at 01:52 PM
+-- Generation Time: Feb 08, 2025 at 03:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,7 +32,7 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` text NOT NULL,
-  `role` enum('admin','client') NOT NULL DEFAULT 'client',
+  `role` enum('admin','patient','pharmacist') NOT NULL DEFAULT 'patient',
   `status` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -41,8 +41,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `status`) VALUES
-(1, 'admin', 'admin@gmail.com', '4297f44b13955235245b2497399d7a93', 'admin', '1'),
-(2, 'client', 'client@gmail.com', '4297f44b13955235245b2497399d7a93', 'client', '1');
+(1, 'admin', 'admin@gmail.com', '4297f44b13955235245b2497399d7a93', 'admin', '1');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +61,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
