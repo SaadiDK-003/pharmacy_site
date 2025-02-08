@@ -1,0 +1,25 @@
+:root {
+      --bg-primary: rgb(14, 47, 62);
+}
+
+html {
+      scroll-behavior: smooth;
+}
+
+body {
+      overflow-x: hidden;
+
+      header {
+            background-color: var(--bg-primary);
+            min-height: 80px;
+      }
+
+      main {
+            min-height: 1000px;
+      }
+
+      footer {
+            background-color: var(--bg-primary);
+            min-height: 80px;
+      }
+}
