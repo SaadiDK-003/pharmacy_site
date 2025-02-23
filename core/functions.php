@@ -29,10 +29,23 @@ function login($POST)
 function register($POST)
 {
       global $db;
-
       $username = $POST['username'];
       $email = $POST['email'];
       $pwd = $POST['password'];
+      $role = $POST['role'];
+      $phone = $POST['phone'];
+      $dob = $POST['dob'];
+      $addr = $POST['address'];
+      $have_disease = $POST['have_disease'];
+      $diseases = '';
+      $experience = $POST['experience'];
+      if ($have_disease == 'yes') {
+            $diseases = $POST['diseases'];
+      }
+      if ($experience != '') {
+            $experience = $POST['experience'];
+      }
+
       $msg = '';
       if (checkEmailExists($email)) {
             $msg = '<h5 class="text-center alert alert-danger">Email already exists.</h5>';
@@ -40,7 +53,7 @@ function register($POST)
             $msg = '<h5 class="text-center alert alert-danger">Password must be greater than 6 characters.</h5>';
       } else {
             $pwd = md5($pwd);
-            $db->query("INSERT INTO `users` (username,email,password) VALUES('$username','$email','$pwd')");
+            $db->query("INSERT INTO `users` (username,email,password,role,phone,dob,address,diseases,experience) VALUES('$username','$email','$pwd','$role','$phone','$dob','$addr','$diseases','$experience')");
             $msg = '<h5 class="text-center alert alert-success">Successfully Registered.</h5>
             <script>
                   setTimeout(function(){
