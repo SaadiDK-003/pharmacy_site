@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2025 at 03:49 PM
+-- Generation Time: Feb 23, 2025 at 08:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -21,6 +21,16 @@ SET time_zone = "+00:00";
 -- Database: `pharmacy_db`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_users` ()   SELECT
+*
+FROM users WHERE role != 'admin'$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -33,6 +43,11 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` text NOT NULL,
   `role` enum('admin','patient','pharmacist') NOT NULL DEFAULT 'patient',
+  `phone` varchar(255) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `diseases` varchar(255) DEFAULT NULL,
+  `experience` varchar(255) DEFAULT NULL,
   `status` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,8 +55,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `status`) VALUES
-(1, 'admin', 'admin@gmail.com', '4297f44b13955235245b2497399d7a93', 'admin', '1');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `phone`, `dob`, `address`, `diseases`, `experience`, `status`) VALUES
+(1, 'admin', 'admin@gmail.com', '4297f44b13955235245b2497399d7a93', 'admin', NULL, NULL, NULL, NULL, NULL, '1');
 
 --
 -- Indexes for dumped tables
@@ -61,7 +76,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
