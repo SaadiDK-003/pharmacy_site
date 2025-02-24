@@ -5,6 +5,8 @@
                   <?php if (isLoggedIn()): ?>
                         <?php if ($userRole == 'admin'): ?>
                               <a href="./adminDashboard.php" class="btn btn-primary">Dashboard</a>
+                        <?php elseif ($userRole == 'patient'): ?>
+                              <a href="./patientDashboard.php" class="btn btn-primary">Dashboard</a>
                         <?php endif; ?>
                         <a href="./logout.php" class="btn btn-danger">Logout</a>
                   <?php else: ?>

@@ -13,6 +13,11 @@ $alpineJs = env("ALPINE_JS");
 $userName = '';
 $userEmail = '';
 $userRole = '';
+$userPhone = '';
+$userDOB = '';
+$userAddr = '';
+$userPwd = '';
+$userDiseases = '';
 $userStatus = '';
 
 $db = mysqli_connect(env("HOST"), env("USER"), env("PWD"), env("DB"));
@@ -24,6 +29,11 @@ if (isset($_SESSION['user'])):
             $GetUserData = mysqli_fetch_object($userData);
             $userName = $GetUserData->username;
             $userEmail = $GetUserData->email;
+            $userPhone = $GetUserData->phone;
+            $userDOB = $GetUserData->dob;
+            $userAddr = $GetUserData->address;
+            $userPwd = $GetUserData->password;
+            $userDiseases = $GetUserData->diseases;
             $userRole = $GetUserData->role;
             $userStatus = $GetUserData->status;
       endif;

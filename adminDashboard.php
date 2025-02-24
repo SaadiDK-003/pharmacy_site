@@ -22,11 +22,14 @@ if ($userRole != 'admin') {
     <main>
         <section class="tabs-section">
             <div class="container mt-5 mx-auto">
-                <!-- <div class="row">
-                    <div class="col-12">
-                        <h2 class="text-center mb-5">< ?= $userName ?></h2>
+                <div class="row">
+                    <div class="col-6 mx-auto">
+                        <div class="btns_wrapper d-flex justify-content-center gap-2">
+                            <a href="#!" class="btn btn-primary">View All Users</a>
+                            <a href="#!" class="btn btn-primary">Add Pharmacy</a>
+                        </div>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div id="tabs-content" class="container">
                 <!-- List of All Users -->
@@ -57,7 +60,7 @@ if ($userRole != 'admin') {
                                                     <td><?= $list_user->username ?></td>
                                                     <td><?= $list_user->status ?></td>
                                                     <td><a href="#!" class="btn btn-sm btn-primary btn-usr-edit" data-id="<?= $list_user->id ?>" data-table="categories"><i class="fas fa-pencil"></i></a>
-                                                        <a href="#!" class="btn btn-sm btn-danger btn-usr-del" data-id="<?= $list_user->id ?>" data-table="users"><i class="fas fa-trash"></i></a>
+                                                        <a href="#!" class="btn btn-sm btn-danger btn-del" data-id="<?= $list_user->id ?>" data-msg="User" data-table="users"><i class="fas fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             <?php endwhile; ?>
@@ -74,6 +77,49 @@ if ($userRole != 'admin') {
                         </div>
                     </div>
                 </div>
+                <div id="show_pharmacy" class="col-12 mt-5 d-none">
+                    <div class="row">
+                        <div class="col-3 mx-auto">
+                            <form id="add_pharmacy">
+                                <div class="form-group">
+                                    <label for="pharmacy_name">Pharmacy Name</label>
+                                    <input type="text" name="pharmacy_name" id="pharmacy_name" required class="form-control">
+                                </div>
+                                <div class="form-group mt-3 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-6 mx-auto">
+                            <?php $get_Pharmacy = $db->query("CALL `get_all_pharmacy`()");
+                            if (mysqli_num_rows($get_Pharmacy) > 0):
+                            ?>
+                                <table class="table table-striped table-bordered text-center align-middle" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Pharmacy Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php while ($list_p = mysqli_fetch_object($get_Pharmacy)): ?>
+                                            <tr>
+                                                <td><?= $list_p->id ?></td>
+                                                <td><?= $list_p->pharmacy_name ?></td>
+                                                <td><a href="#!" class="btn btn-danger btn-del" data-id="<?= $list_p->id ?>" data-msg="Pharmacy" data-table="pharmacy"><i class="fas fa-trash"></i></a></td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            <?php else: ?>
+                                <h3 class="text-center alert alert-info">No Pharmacy Record Found.</h3>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -84,6 +130,12 @@ if ($userRole != 'admin') {
     <script>
         $(document).ready(function() {
 
+            $(document).on('click', '.btns_wrapper a', function(e) {
+                e.preventDefault();
+                let index = $(this).index() + 1;
+
+                $(`#tabs-content > div:nth-child(${index})`).removeClass('d-none').siblings().addClass('d-none');
+            });
             // Tabs Selection
             $(document).on('click', '#tabs-buttons a', function(e) {
                 if ($(this).hasClass('current-page')) {
@@ -95,18 +147,18 @@ if ($userRole != 'admin') {
             });
 
             // Add Category
-            $("#category_form").on("submit", function(e) {
+            $("#add_pharmacy").on("submit", function(e) {
                 e.preventDefault();
                 let formData = $(this).serialize();
 
                 $.ajax({
-                    url: "ajax/category.php",
+                    url: "ajax/pharmacy.php",
                     method: "post",
                     data: formData,
                     success: function(response) {
                         let res = JSON.parse(response);
+                        $("#ToastSuccess").addClass("fade show");
                         $("#ToastSuccess .toast-body").html(res.msg);
-                        toastSuccess.show();
                         setTimeout(() => {
                             window.location.reload();
                         }, 2000);
@@ -115,17 +167,19 @@ if ($userRole != 'admin') {
             });
 
             // Del Category
-            $(document).on("click", ".btn-usr-del", function(e) {
+            $(document).on("click", ".btn-del", function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');
                 let table = $(this).data('table');
+                let msg = $(this).data('msg');
 
                 $.ajax({
                     url: "ajax/delete.php",
                     method: "post",
                     data: {
                         del_id: id,
-                        del_table: table
+                        del_table: table,
+                        msg: msg
                     },
                     success: function(response) {
                         console.log(response);
@@ -140,21 +194,6 @@ if ($userRole != 'admin') {
                 });
             });
 
-            // Copy Reg link
-            $(document).on('click', '#tabs-buttons a.copy-link', function(e) {
-                e.preventDefault();
-                let href = $(this).attr('href');
-                // Copy href to clipboard
-                navigator.clipboard.writeText(href).then(
-                    () => {
-                        $("#ToastSuccess .toast-body").html('Registration link copied.');
-                        toastSuccess.show();
-                    },
-                    (err) => {
-                        console.error('Could not copy text: ', err);
-                    }
-                );
-            });
         });
     </script>
 </body>

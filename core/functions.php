@@ -77,3 +77,36 @@ function checkEmailExists($email)
             return false;
       }
 }
+
+
+function Update_Profile($POST)
+{
+      global $db;
+      $id = $POST['usr_id'];
+      $name = $POST['username'];
+      $email = $POST['email'];
+      $phone = $POST['phone'];
+      $dob = $POST['dob'];
+      $pwd = $POST['password'];
+      $old_pwd = $POST['old_pwd'];
+      $new_pwd = '';
+      $diseases = $POST['diseases'];
+      $addr = $POST['address'];
+
+      if ($pwd != '') {
+            $new_pwd = md5($pwd);
+      } else {
+            $new_pwd = $old_pwd;
+      }
+
+      $upd_user = $db->query("UPDATE `users` SET `username`='$name', `email`='$email', `phone`='$phone', `dob`='$dob', `password`='$new_pwd', `diseases`='$diseases', `address`='$addr' WHERE `id`='$id'");
+      if ($upd_user) {
+            echo '<h4 class="text-center alert alert-success">Updated Successfully.</h4>
+            <script>
+            setTimeout(function(){
+                  window.location.href = "./edit_profile.php";
+            },1800);
+            </script>
+            ';
+      }
+}

@@ -92,7 +92,7 @@ if (isLoggedIn()) {
                         <div class="col-12 mb-3">
                             <div class="form-group">
                                 <label for="address" class="form-label">Address</label>
-                                <textarea name="address" id="address" class="form-control" required></textarea>
+                                <input type="text" name="address" id="address" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-12">
