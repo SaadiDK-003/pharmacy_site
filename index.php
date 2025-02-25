@@ -31,13 +31,13 @@ require_once 'core/database.php';
                               <div class="col-12 col-md-6">
                                     <div class="hero_slider owl-carousel">
                                           <div class="item">
-                                                <img src="https://picsum.photos/id/201/800/350" alt="img-1">
+                                                <img src="img/201-800x350.jpg" alt="img-1">
                                           </div>
                                           <div class="item">
-                                                <img src="https://picsum.photos/id/48/800/350" alt="img-2">
+                                                <img src="img/48-800x350.jpg" alt="img-2">
                                           </div>
                                           <div class="item">
-                                                <img src="https://picsum.photos/id/180/800/350" alt="img-3">
+                                                <img src="img/180-800x350.jpg" alt="img-3">
                                           </div>
                                     </div>
                               </div>
