@@ -1,6 +1,6 @@
 <?php
 require_once 'core/database.php';
-if ($userRole != 'patient') {
+if (($userStatus == '0' && $userRole == 'patient') || $userRole != 'patient') {
     header('Location: index.php');
 }
 
