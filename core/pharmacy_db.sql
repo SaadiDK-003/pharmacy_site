@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2025 at 10:12 PM
+-- Generation Time: Feb 25, 2025 at 09:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +46,14 @@ CREATE TABLE `pharmacy` (
   `pharmacy_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `pharmacy`
+--
+
+INSERT INTO `pharmacy` (`id`, `pharmacy_name`) VALUES
+(6, 'Bartell Drugs'),
+(7, 'Boone Drug');
+
 -- --------------------------------------------------------
 
 --
@@ -72,7 +80,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `phone`, `dob`, `address`, `diseases`, `experience`, `status`) VALUES
 (1, 'admin', 'admin@gmail.com', '4297f44b13955235245b2497399d7a93', 'admin', NULL, NULL, NULL, NULL, NULL, '1'),
-(14, 'patient1', 'patient@gmail.com', '3d186804534370c3c817db0563f0e461', 'patient', '123123456', '2015-01-01', 'test', 'test123', '', '0');
+(14, 'patient1', 'patient@gmail.com', '4297f44b13955235245b2497399d7a93', 'patient', '123123456', '2015-01-01', 'test', 'test123', '', '1');
 
 --
 -- Indexes for dumped tables
@@ -98,7 +106,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `pharmacy`
 --
 ALTER TABLE `pharmacy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
