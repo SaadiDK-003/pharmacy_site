@@ -37,7 +37,7 @@ if (isset($_POST['phr_id']) && isset($_POST['phr_msg']) && isset($_POST['phr_tab
     $table = $_POST['phr_table'];
 
     try {
-        $upd_phr = $db->query("UPDATE `$tablea` SET `pharmacy_name`='$pharmacy_name' WHERE `id`='$phr_id'");
+        $upd_phr = $db->query("UPDATE `$table` SET `pharmacy_name`='$pharmacy_name' WHERE `id`='$phr_id'");
 
         if ($upd_phr) {
             echo json_encode(["status" => "success", "msg" => "Updated Successfully."]);
