@@ -31,29 +31,41 @@ if (($userStatus == '0' && $userRole == 'pharmacist') || $userRole != 'pharmacis
                     <h3 class="text-center">Add Medicine</h3>
                     <?php
                     if (isset($_POST['submit'])):
-                        addMedicine($_POST, $userid);
+                        addMedicine($_POST, $_FILES, $userid);
                     endif;
                     ?>
                 </div>
                 <div class="col-12 col-md-6 mx-auto">
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col-12 col-md-4 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="medicine_name" class="form-label">Name</label>
                                     <input type="text" name="medicine_name" id="medicine_name" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4 mb-3">
+                            <div class="col-12 col-md-3 mb-3">
                                 <div class="form-group">
                                     <label for="medicine_qty" class="form-label">Quantity</label>
                                     <input type="number" min="1" name="medicine_qty" id="medicine_qty" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4 mb-3">
+                            <div class="col-12 col-md-3 mb-3">
+                                <div class="form-group">
+                                    <label for="medicine_price" class="form-label">Price</label>
+                                    <input type="number" min="1" name="medicine_price" id="medicine_price" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="medicine_exp" class="form-label">Expiry Date</label>
                                     <input type="date" name="medicine_exp" id="medicine_exp" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="medicine_img" class="form-label">Picture</label>
+                                    <input type="file" name="medicine_img" id="medicine_img" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-12 mt-3">

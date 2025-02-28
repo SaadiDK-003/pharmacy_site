@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2025 at 12:00 PM
+-- Generation Time: Feb 28, 2025 at 03:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +46,8 @@ CREATE TABLE `medicines` (
   `id` int(11) NOT NULL,
   `medicine_name` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
+  `price` int(11) DEFAULT NULL,
+  `img` text DEFAULT NULL,
   `exp_date` date NOT NULL,
   `phar_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -54,8 +56,8 @@ CREATE TABLE `medicines` (
 -- Dumping data for table `medicines`
 --
 
-INSERT INTO `medicines` (`id`, `medicine_name`, `quantity`, `exp_date`, `phar_id`) VALUES
-(4, 'Panadol', 12, '2025-03-07', 16);
+INSERT INTO `medicines` (`id`, `medicine_name`, `quantity`, `price`, `img`, `exp_date`, `phar_id`) VALUES
+(5, 'Panadol', 12, 20, './img/medicine/abc.png', '2025-03-07', 16);
 
 -- --------------------------------------------------------
 
@@ -139,7 +141,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `medicines`
 --
 ALTER TABLE `medicines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pharmacy`

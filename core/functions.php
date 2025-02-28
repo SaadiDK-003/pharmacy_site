@@ -83,7 +83,7 @@ function checkEmailExists($email)
 }
 
 
-function Update_Profile($POST, $role)
+function Update_Profile(array $POST, string $role)
 {
       global $db;
       $id = $POST['usr_id'];
@@ -137,23 +137,49 @@ function getAllPharmacies($db)
 }
 
 
-function addMedicine($POST, $id)
+function addMedicine($POST, $FILE, $id)
 {
+      $targetDir = './img/medicine/';
+
       global $db;
       $name = $POST['medicine_name'];
       $qty = $POST['medicine_qty'];
       $exp = $POST['medicine_exp'];
+      $price = $POST['medicine_price'];
       $msg = '';
       try {
-            $add_med = $db->query("INSERT INTO `medicines` (medicine_name,quantity,exp_date,phar_id) VALUES('$name','$qty','$exp','$id')");
-            if ($add_med) {
-                  $msg = '<h4 class="alert alert-success text-center">Medicine has been added.</h4>
-                  <script>
-                        setTimeout(function(){
-                              window.location.href = "./pharmacistDashboard.php";
-                        },1800);
-                  </script>
-                  ';
+
+            if (!empty($FILE["medicine_img"]["name"])) {
+
+                  $fileName = basename($FILE["medicine_img"]["name"]);
+                  $targetFilePath = $targetDir . $fileName;
+                  $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+                  //allow certain file formats
+                  $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'webp');
+                  if (in_array($fileType, $allowTypes)) {
+                        //upload file to server
+                        if (move_uploaded_file($FILE["medicine_img"]["tmp_name"], $targetFilePath)) {
+
+                              $add_med = $db->query("INSERT INTO `medicines` (medicine_name,quantity,exp_date,price,img,phar_id) VALUES('$name','$qty','$exp','$price','$targetFilePath','$id')");
+                              if ($add_med) {
+                                    $msg = '<h4 class="alert alert-success text-center">Medicine has been added.</h4>
+                                    <script>
+                                          setTimeout(function(){
+                                                window.location.href = "./pharmacistDashboard.php";
+                                          },1800);
+                                    </script>
+                                    ';
+                              }
+                        } else {
+                              $msg = "Sorry, there was an error uploading your file.";
+                        }
+                  } else {
+                        $msg = '<h6 class="alert alert-danger w-75 text-center mx-auto">Sorry, only JPG, JPEG, PNG & GIF files are allowed to upload.</h6>';
+                  }
+            } else {
+
+                  $msg = '<h6 class="alert alert-success w-50 text-center mx-auto">Please select a file to upload.</h6>';
             }
       } catch (\Throwable $th) {
             $msg = '<h4 class="alert alert-danger">' . $th->getMessage() . '</h4>';
