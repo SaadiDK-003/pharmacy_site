@@ -1,2 +1,5 @@
 .env
 info/
+img/medicine/*.png
+img/medicine/*.jpg
+img/medicine/*.jpeg
