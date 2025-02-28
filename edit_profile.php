@@ -6,10 +6,6 @@ if (!isLoggedIn()) {
     exit();
 }
 
-if ($userRole != 'patient') {
-    header('Location: index.php');
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,46 +29,66 @@ if ($userRole != 'patient') {
                 </div>
                 <div class="col-6 mx-auto">
                     <?php if (isset($_POST['submit'])) {
-                        Update_Profile($_POST);
+                        Update_Profile($_POST, $userRole);
                     } ?>
                     <form action="" method="post">
                         <div class="row">
-                            <div class="col-6 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label" for="username">Name</label>
                                     <input type="text" name="username" value="<?= $userName ?>" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-6 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label" for="email">Email</label>
                                     <input type="email" name="email" value="<?= $userEmail ?>" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-6 mb-3">
+                            <div class="col-12 col-md-<?= ($userRole == 'pharmacist') ? '5' : '6' ?> mb-3">
                                 <div class="form-group">
                                     <label class="form-label" for="phone">Phone</label>
                                     <input type="tel" name="phone" value="<?= $userPhone ?>" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-6 mb-3">
+                            <div class="col-12 col-md-<?= ($userRole == 'pharmacist') ? '3' : '6' ?> mb-3">
                                 <div class="form-group">
                                     <label class="form-label" for="dob">Date Of Birth</label>
                                     <input type="date" name="dob" value="<?= $userDOB ?>" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-6 mb-3">
+                            <?php if ($userRole == 'pharmacist'): ?>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label" for="phar">Select Pharmacy</label>
+                                        <select name="pharmacy_id" id="phar" class="form-select">
+                                            <option value="<?= $phar_id ?? '' ?>" selected hidden><?= $getPhar->pharmacy_name ?? "Select Pharmacy" ?></option>
+                                            <?= getAllPharmacies($db) ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label" for="password">Password</label>
                                     <input type="password" name="password" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label" for="diseases">Diseases</label>
-                                    <input type="text" name="diseases" value="<?= $userDiseases ?? '' ?>" class="form-control">
+                            <?php if ($userRole == 'patient'): ?>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label" for="diseases">Diseases</label>
+                                        <input type="text" name="diseases" value="<?= $userDiseases ?? '' ?>" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
+                            <?php else: ?>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label" for="experience">Years of Experience</label>
+                                        <input type="text" name="experience" value="<?= $yearsOfExperience ?? '' ?>" class="form-control">
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                             <div class="col-12 mb-3">
                                 <div class="form-group">
                                     <label class="form-label" for="address">Address</label>

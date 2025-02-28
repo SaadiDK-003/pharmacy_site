@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 session_start();
 function env($value)
 {
@@ -7,6 +6,7 @@ function env($value)
       $core = parse_ini_file($env);
       return $core[$value];
 }
+error_reporting(env("ERROR_REPORT"));
 $tailwind = env("TAILWIND");
 $alpineJs = env("ALPINE_JS");
 
@@ -20,6 +20,8 @@ $userAddr = '';
 $userPwd = '';
 $userDiseases = '';
 $userStatus = '';
+$yearsOfExperience = '';
+$phar_id = '';
 
 $db = mysqli_connect(env("HOST"), env("USER"), env("PWD"), env("DB"));
 
@@ -35,8 +37,13 @@ if (isset($_SESSION['user'])):
             $userAddr = $GetUserData->address;
             $userPwd = $GetUserData->password;
             $userDiseases = $GetUserData->diseases;
+            $yearsOfExperience = $GetUserData->experience;
+            $phar_id = $GetUserData->phar_id;
             $userRole = $GetUserData->role;
             $userStatus = $GetUserData->status;
+
+            $Q_get_phar_name = $db->query("SELECT `pharmacy_name` FROM `pharmacy` WHERE `id`='$phar_id'");
+            $getPhar = mysqli_fetch_object($Q_get_phar_name);
       endif;
 endif;
 

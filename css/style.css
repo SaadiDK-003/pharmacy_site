@@ -46,6 +46,14 @@ body main section.hero .hero_slider .item img {
   max-width: 100%;
   object-fit: cover;
 }
+body main input[type=number] {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+body main input[type=number]::-webkit-inner-spin-button, body main input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 body footer {
   background-color: var(--bg-primary);
   min-height: 80px;

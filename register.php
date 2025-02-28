@@ -84,9 +84,21 @@ if (isLoggedIn()) {
                         </div>
                         <!-- Pharmacist -->
                         <div id="pharmacist" class="col-12 pharmacist d-none">
-                            <div class="form-group">
-                                <label for="experience" class="form-label">Years Of Experience</label>
-                                <input name="experience" id="experience" class="form-control">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="experience" class="form-label">Years Of Experience</label>
+                                        <input name="experience" id="experience" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="phar" class="form-label">Select Pharmacy</label>
+                                        <select name="pharmacy" id="phar" class="form-select">
+                                            <?= getAllPharmacies($db) ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
