@@ -27,7 +27,7 @@ if (!isLoggedIn()) {
                 <div class="col-12 mb-4">
                     <h1 class="text-center">Edit Profile Page</h1>
                 </div>
-                <div class="col-6 mx-auto">
+                <div class="col-12 col-md-6 mx-auto">
                     <?php if (isset($_POST['submit'])) {
                         Update_Profile($_POST, $userRole);
                     } ?>
