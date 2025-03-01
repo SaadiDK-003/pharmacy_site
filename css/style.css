@@ -9,6 +9,11 @@ html {
   scroll-behavior: smooth;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 .ff_livvic {
   font-family: var(--ff-livvic);
 }
@@ -54,7 +59,56 @@ body main input[type=number]::-webkit-inner-spin-button, body main input[type=nu
   -webkit-appearance: none;
   margin: 0;
 }
+body main #medicines-list .content {
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px 3px #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  min-height: 320px;
+}
+body main #medicines-list .content .image {
+  height: 200px;
+  padding: 10px;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+}
+body main #medicines-list .content .image img {
+  border-radius: 5px;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+body main #medicines-list .content .text-wrapper {
+  min-height: 110px;
+  padding: 10px;
+  display: grid;
+}
+body main #medicines-list .content .text-wrapper h5 {
+  top: 12px;
+  right: 10px;
+}
+body main #medicines-list .content .text-wrapper h3 {
+  color: #333;
+}
+body main #medicines-list .content .text-wrapper .qty-price {
+  align-items: flex-end;
+}
+body .dt-buttons button {
+  border: 1px solid #0d6efd;
+  background-color: #0d6efd;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 12px;
+}
 body footer {
   background-color: var(--bg-primary);
   min-height: 80px;
+}
+
+@media print {
+  title,
+  header {
+    display: none;
+  }
 }/*# sourceMappingURL=style.css.map */

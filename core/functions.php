@@ -161,7 +161,7 @@ function addMedicine($POST, $FILE, $id)
                         //upload file to server
                         if (move_uploaded_file($FILE["medicine_img"]["tmp_name"], $targetFilePath)) {
 
-                              $add_med = $db->query("INSERT INTO `medicines` (medicine_name,quantity,exp_date,price,img,phar_id) VALUES('$name','$qty','$exp','$price','$targetFilePath','$id')");
+                              $add_med = $db->query("INSERT INTO `medicines` (medicine_name,quantity,exp_date,price,img,user_id) VALUES('$name','$qty','$exp','$price','$targetFilePath','$id')");
                               if ($add_med) {
                                     $msg = '<h4 class="alert alert-success text-center">Medicine has been added.</h4>
                                     <script>

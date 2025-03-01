@@ -25,7 +25,8 @@ require_once 'core/database.php';
                                           <h1 class="ff_livvic"><?= env('TITLE') ?></h1>
                                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos magnam omnis fuga provident quis obcaecati doloribus dolorum reprehenderit, quas veritatis!</p>
                                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe pariatur odio esse consequuntur magni, perspiciatis a. Quibusdam quas voluptatum nisi, quis obcaecati quisquam iusto veniam.</p>
-                                          <a href="#!" class="btn btn-primary">Demo Button</a>
+                                          <a href="./medicines-list.php" class="btn btn-primary">Medicines List</a>
+                                          <a href="./printMedicine.php" class="btn btn-secondary">Print List</a>
                                     </div>
                               </div>
                               <div class="col-12 col-md-6">

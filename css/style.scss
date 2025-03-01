@@ -10,6 +10,11 @@ html {
   scroll-behavior: smooth;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 .ff_livvic {
   font-family: var(--ff-livvic);
 }
@@ -61,10 +66,66 @@ body {
         margin: 0;
       }
     }
+
+    #medicines-list {
+      .content {
+        border: 1px solid #ddd;
+        box-shadow: 0 0 5px 3px #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+        min-height: 320px;
+        .image {
+          height: 200px;
+          padding: 10px;
+          overflow: hidden;
+          border-bottom: 1px solid #ddd;
+          img {
+            border-radius: 5px;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .text-wrapper {
+          min-height: 110px;
+          padding: 10px;
+          display: grid;
+          h5 {
+            top: 12px;
+            right: 10px;
+          }
+          h3 {
+            color: #333;
+          }
+          .qty-price {
+            align-items: flex-end;
+          }
+        }
+      }
+    }
+  }
+
+  // DataTable Buttons
+  .dt-buttons {
+    button {
+      border: 1px solid #0d6efd;
+      background-color: #0d6efd;
+      color: #fff;
+      border-radius: 5px;
+      padding: 5px 12px;
+    }
   }
 
   footer {
     background-color: var(--bg-primary);
     min-height: 80px;
+  }
+}
+
+@media print {
+  title,
+  header {
+    display: none;
   }
 }
