@@ -34,7 +34,7 @@ if (($userStatus == '0' && $userRole == 'patient') || $userRole != 'patient') {
                 if (mysqli_num_rows($q_med) > 0):
                     while ($list_m = mysqli_fetch_object($q_med)): ?>
 
-                        <div class="col-12 col-md-3 mb-3">
+                        <div class="col-12 col-md-4 mb-3">
                             <div class="content position-relative">
                                 <a href="#!" class="del-reminder btn btn-danger btn-sm rounded-circle position-absolute" data-id="<?= $list_m->reminder_id ?>" data-table="reminder" data-msg="Reminder">
                                     <i class="fas fa-trash"></i>
@@ -42,11 +42,38 @@ if (($userStatus == '0' && $userRole == 'patient') || $userRole != 'patient') {
                                 <div class="image">
                                     <img src="<?= $list_m->img ?>" alt="a" width="" height="">
                                 </div>
-                                <div class="text-wrapper position-relative">
-                                    <h5 class="btn btn-sm btn-secondary position-absolute"><?= $list_m->phar_name ?></h5>
-                                    <h4 class="fw-bold"><?= $list_m->medicine_name ?></h4>
-                                    <div class="qty-price">
-                                        <span class="btn btn-sm btn-success">Intake Time: <strong><?= date('h:i A', strtotime($list_m->reminder_time)) ?></strong></span>
+                                <div class="text-wrapper">
+                                    <div class="top-section d-flex align-items-center justify-content-between">
+                                        <h4 class="fw-bold"><?= $list_m->medicine_name ?></h4>
+                                        <h5 class="btn btn-sm btn-secondary"><?= $list_m->phar_name ?></h5>
+                                    </div>
+                                    <hr>
+                                    <h6>Medicine to take <strong>Days</strong>:</h6>
+                                    <div class="days d-flex gap-2">
+                                        <?php $days_arr = explode(',', $list_m->days);
+                                        foreach ($days_arr as $value) {
+                                            echo '<span class="btn btn-sm btn-success">' . $value . '</span>';
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="qty-price d-grid mt-3 gap-2" title="it's time to take this medicine">
+                                        <h6>Medicine <strong>Intake Timing</strong>:</h6>
+                                        <?php if ($list_m->morning_time != NULL && $list_m->morning_time != "00:00:00"): ?>
+                                            <span class="btn btn-sm btn-success">Morning Time: <strong><span class="reminder_time"><?= date('h:i A', strtotime($list_m->morning_time)) ?></span></strong></span>
+                                        <?php endif; ?>
+
+                                        <?php if ($list_m->afternoon_time != NULL && $list_m->afternoon_time != "00:00:00"): ?>
+                                            <span class="btn btn-sm btn-success">Afternoon Time: <strong><span class="reminder_time"><?= date('h:i A', strtotime($list_m->afternoon_time)) ?></span></strong></span>
+                                        <?php endif; ?>
+
+                                        <?php if ($list_m->evening_time != NULL && $list_m->evening_time != "00:00:00"): ?>
+                                            <span class="btn btn-sm btn-success">Evening Time: <strong><span class="reminder_time"><?= date('h:i A', strtotime($list_m->evening_time)) ?></span></strong></span>
+                                        <?php endif; ?>
+
+                                        <?php if ($list_m->night_time != NULL && $list_m->night_time != "00:00:00"): ?>
+                                            <span class="btn btn-sm btn-success">Night Time: <strong><span class="reminder_time"><?= date('h:i A', strtotime($list_m->night_time)) ?></span></strong></span>
+                                        <?php endif; ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -94,6 +121,34 @@ if (($userStatus == '0' && $userRole == 'patient') || $userRole != 'patient') {
                         }
                     }
                 });
+            });
+
+            // Medicine Reminder Alert Work
+            let all_reminders = $("#medicines-list").find(".reminder_time");
+            all_reminders.each((i, e) => {
+
+                let reminderTimeStr = $(e).html().trim();
+                let currentTime = new Date();
+                let reminderTime = new Date();
+                let timeParts = reminderTimeStr.match(/(\d+):(\d+) (\wM)/);
+
+                if (timeParts) {
+                    let hours = parseInt(timeParts[1], 10);
+                    let minutes = parseInt(timeParts[2], 10);
+                    let ampm = timeParts[3];
+
+                    if (ampm === "PM" && hours !== 12) hours += 12;
+                    if (ampm === "AM" && hours === 12) hours = 0;
+
+                    reminderTime.setHours(hours, minutes, 0, 0);
+                }
+                let diffMinutes = (reminderTime - currentTime) / 60000;
+                console.log(diffMinutes)
+                if (diffMinutes > 0 && diffMinutes <= 5) {
+                    $(e).parents('.qty-price').addClass("highlight");
+                    $(e).parent().parent().addClass('btn-danger');
+                }
+
             });
         });
     </script>

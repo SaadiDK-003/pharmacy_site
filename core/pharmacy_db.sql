@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2025 at 01:03 PM
+-- Generation Time: Mar 02, 2025 at 09:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,7 +36,11 @@ FROM users WHERE role != 'admin'$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user_reminder` (IN `user_id` INT)   SELECT
 r.id AS 'reminder_id',
-r.reminder_time,
+r.reminder_time_morning AS 'morning_time',
+r.reminder_time_afternoon AS 'afternoon_time',
+r.reminder_time_evening AS 'evening_time',
+r.reminder_time_night AS 'night_time',
+r.days,
 r.phar_name,
 m.medicine_name,
 m.quantity,
@@ -109,7 +113,7 @@ CREATE TABLE `medicines` (
 INSERT INTO `medicines` (`id`, `medicine_name`, `quantity`, `price`, `img`, `exp_date`, `user_id`) VALUES
 (7, 'Adderall', 8, 5, './img/medicine/Adderall.png', '2025-03-05', 17),
 (9, 'Entresto', 10, 9, './img/medicine/Entresto.png', '2025-03-05', 16),
-(10, 'Amlodipine', 8, 25, './img/medicine/Amlodipine_Besylate.png', '2025-03-13', 16);
+(10, 'Amlodipine', 8, 250, './img/medicine/Amlodipine_Besylate.png', '2025-03-13', 16);
 
 -- --------------------------------------------------------
 
@@ -142,7 +146,11 @@ CREATE TABLE `reminder` (
   `user_id` int(11) NOT NULL,
   `med_id` int(11) NOT NULL,
   `phar_name` varchar(255) DEFAULT NULL,
-  `reminder_time` time NOT NULL
+  `reminder_time_morning` time DEFAULT NULL,
+  `reminder_time_afternoon` time DEFAULT NULL,
+  `reminder_time_evening` time DEFAULT NULL,
+  `reminder_time_night` time DEFAULT NULL,
+  `days` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -229,7 +237,7 @@ ALTER TABLE `pharmacy`
 -- AUTO_INCREMENT for table `reminder`
 --
 ALTER TABLE `reminder`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `users`

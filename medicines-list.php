@@ -61,7 +61,7 @@ if (!isLoggedIn()) {
 
     <!-- Modal Add Reminder -->
     <div class="modal fade" id="reminderModal" tabindex="-1" aria-labelledby="reminderModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form id="reminder_form">
                     <div class="modal-header">
@@ -70,9 +70,37 @@ if (!isLoggedIn()) {
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-12">
-                                <label for="intake-time" class="form-label">Intake Time</label>
-                                <input type="time" name="intake_time" id="intake-time" class="form-control">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="intake-time-mor" class="form-label">Intake Time Morning</label>
+                                <input type="time" name="intake_time_mor" id="intake-time-mor" class="form-control">
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="intake-time-aft" class="form-label">Intake Time Afternoon</label>
+                                <input type="time" name="intake_time_aft" id="intake-time-aft" class="form-control">
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="intake-time-eve" class="form-label">Intake Time Evening</label>
+                                <input type="time" name="intake_time_eve" id="intake-time-eve" class="form-control">
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="intake-time-nig" class="form-label">Intake Time Night</label>
+                                <input type="time" name="intake_time_nig" id="intake-time-nig" class="form-control">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="days" class="form-label">Select Days</label>
+                                <select name="days[]" id="days" multiple class="form-select">
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                    <option value="Sunday">Sunday</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="check_all_days" class="form-check-label">All Days</label>
+                                <input type="checkbox" name="all_days" id="check_all_days" value="all days" class="form-check-input">
                             </div>
                         </div>
                     </div>
@@ -127,6 +155,15 @@ if (!isLoggedIn()) {
                         }
                     }
                 });
+            });
+
+            $(document).on("change", "#check_all_days", function(e) {
+                e.preventDefault();
+                if ($(this).is(":checked")) {
+                    $("#days").attr("disabled", true).val("");
+                } else {
+                    $("#days").attr("disabled", false);
+                }
             });
         });
     </script>
