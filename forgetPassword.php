@@ -48,7 +48,7 @@ if (isLoggedin()) {
                                     SUBMIT
                                 </button>
                             </div>
-                            <a href="./" class="d-block text-center mt-4 text-decoration-none">Back to home page.</a>
+                            <a href="login.php" class="d-block text-center mt-4 text-decoration-none">Back to Login page.</a>
                         </div>
                     </div>
                 </form>

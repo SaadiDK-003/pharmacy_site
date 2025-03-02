@@ -46,6 +46,7 @@ if (isLoggedIn()) {
                               </div>
                         </form>
                   </div>
+                  <a href="forgetPassword.php" class="d-block text-center mt-4 text-decoration-none">Forget Your Password?</a>
             </div>
       </div>
 
