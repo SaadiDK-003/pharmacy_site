@@ -117,6 +117,11 @@ if (!isLoggedIn()) {
                         } else {
                             $("#ToastDanger .toast-body").html(res.msg);
                             $("#ToastDanger").addClass("fade show");
+                            setTimeout(() => {
+                                $("input[type='time']").val("");
+                                $("#reminderModal").modal('hide');
+                                $("#ToastDanger").removeClass("fade show");
+                            }, 1500);
                         }
                     }
                 });

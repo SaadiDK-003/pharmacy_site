@@ -186,3 +186,14 @@ function addMedicine($POST, $FILE, $id)
       }
       echo $msg;
 }
+
+
+function update_medicine($POST, $FILE)
+{
+
+      if (!empty($FILE['e_medicine_img']['name'])) {
+            echo 'has file';
+      } else {
+            echo 'no file';
+      }
+}

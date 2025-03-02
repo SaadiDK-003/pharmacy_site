@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2025 at 01:53 AM
+-- Generation Time: Mar 02, 2025 at 03:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,6 +63,11 @@ INNER JOIN users u ON m.user_id=u.id
 INNER JOIN pharmacy p ON u.phar_id=p.id
 ORDER BY m.medicine_name ASC$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `medicines_list_by_user` (IN `user_id` INT)   SELECT
+*
+FROM medicines m
+WHERE m.user_id=user_id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `medicines_list_recent` ()   SELECT
 m.id AS 'med_id',
 m.medicine_name,
@@ -102,9 +107,9 @@ CREATE TABLE `medicines` (
 --
 
 INSERT INTO `medicines` (`id`, `medicine_name`, `quantity`, `price`, `img`, `exp_date`, `user_id`) VALUES
-(6, 'Entresto', 12, 20, './img/medicine/Entresto.png', '2025-03-08', 16),
 (7, 'Adderall', 8, 5, './img/medicine/Adderall.png', '2025-03-05', 17),
-(8, 'Amlodipine', 20, 14, './img/medicine/Amlodipine_Besylate.png', '2025-03-05', 16);
+(9, 'Entresto', 10, 9, './img/medicine/Entresto.png', '2025-03-05', 16),
+(10, 'Amlodipine', 20, 12, './img/medicine/Amlodipine_Besylate.png', '2025-03-12', 16);
 
 -- --------------------------------------------------------
 
@@ -195,7 +200,7 @@ ALTER TABLE `pharmacy`
 ALTER TABLE `reminder`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `med_id` (`med_id`);
+  ADD KEY `reminder_ibfk_2` (`med_id`);
 
 --
 -- Indexes for table `users`
@@ -212,7 +217,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `medicines`
 --
 ALTER TABLE `medicines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pharmacy`
@@ -224,7 +229,7 @@ ALTER TABLE `pharmacy`
 -- AUTO_INCREMENT for table `reminder`
 --
 ALTER TABLE `reminder`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -247,7 +252,7 @@ ALTER TABLE `medicines`
 --
 ALTER TABLE `reminder`
   ADD CONSTRAINT `reminder_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `reminder_ibfk_2` FOREIGN KEY (`med_id`) REFERENCES `medicines` (`id`);
+  ADD CONSTRAINT `reminder_ibfk_2` FOREIGN KEY (`med_id`) REFERENCES `medicines` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`

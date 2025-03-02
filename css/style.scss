@@ -15,6 +15,16 @@ img {
   display: block;
 }
 
+input[type="number"] {
+  appearance: none;
+  -moz-appearance: textfield;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
 .ff_livvic {
   font-family: var(--ff-livvic);
 }
@@ -55,15 +65,6 @@ body {
             }
           }
         }
-      }
-    }
-    input[type="number"] {
-      appearance: none;
-      -moz-appearance: textfield;
-      &::-webkit-inner-spin-button,
-      &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
       }
     }
 
