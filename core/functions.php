@@ -254,3 +254,25 @@ function update_medicine_img($POST, $FILE)
 
       echo $msg;
 }
+
+function forgetPassword($email, $phone)
+{
+      global $db;
+      $msg = '';
+      $checkQ = $db->query("SELECT * FROM `users` WHERE `email`='$email' AND `phone`='$phone'");
+      if (mysqli_num_rows($checkQ) > 0) {
+            $bytes = bin2hex(random_bytes(4));
+            $newPwdMD5 = md5($bytes);
+            $db->query("UPDATE `users` SET `password`='$newPwdMD5' WHERE `email`='$email' AND `phone`='$phone'");
+            $msg = '<h6 class="text-center alert alert-success">Your New Password is: <span class="d-block">' . $bytes . '<span></h6>
+        <script>
+            setTimeout(function(){
+                window.location.href = "./login.php";
+            },10000);
+        </script>
+        ';
+      } else {
+            $msg = '<h6 class="text-center alert alert-danger">Invalid Credentials.</h6>';
+      }
+      return $msg;
+}
