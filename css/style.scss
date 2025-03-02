@@ -75,6 +75,11 @@ body {
         overflow: hidden;
         width: 100%;
         min-height: 320px;
+        .add-to-reminder,
+        .del-reminder {
+          right: 20px;
+          top: 20px;
+        }
         .image {
           height: 200px;
           padding: 10px;

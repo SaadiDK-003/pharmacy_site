@@ -17,7 +17,7 @@ if (!isLoggedIn()) {
 <body id="medicines_list">
     <?php include_once 'includes/header.php'; ?>
     <main>
-        <div class="container mt-5">
+        <div class="container my-5">
             <div class="row">
                 <div class="col-12">
                     <h1 class="text-center">Medicines List</h1>
@@ -29,8 +29,11 @@ if (!isLoggedIn()) {
                 if (mysqli_num_rows($q_med) > 0):
                     while ($list_m = mysqli_fetch_object($q_med)): ?>
 
-                        <div class="col-12 col-md-3">
-                            <div class="content">
+                        <div class="col-12 col-md-3 mb-3">
+                            <div class="content position-relative">
+                                <a href="#!" data-bs-toggle="modal" data-bs-target="#reminderModal" class="add-to-reminder btn btn-danger btn-sm rounded-circle position-absolute" data-med="<?= $list_m->med_id ?>" data-usr="<?= $userid ?>" data-phar="<?= $list_m->pharmacy_name ?>">
+                                    <i class="fas fa-bell"></i>
+                                </a>
                                 <div class="image">
                                     <img src="<?= $list_m->img ?>" alt="a" width="" height="">
                                 </div>
@@ -52,10 +55,73 @@ if (!isLoggedIn()) {
             </div>
         </div>
     </main>
+
+
+    <!-- Modal Add Reminder -->
+    <div class="modal fade" id="reminderModal" tabindex="-1" aria-labelledby="reminderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <form id="reminder_form">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="reminderModalLabel">Add Reminder</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="intake-time" class="form-label">Intake Time</label>
+                                <input type="time" name="intake_time" id="intake-time" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="hidden" name="med_id" id="med_id">
+                        <input type="hidden" name="phar_name" id="phar_name">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <?php include_once 'includes/footer.php'; ?>
     <?php include_once 'includes/external_js.php'; ?>
     <script>
-        $(document).ready(function() {});
+        $(document).ready(function() {
+            $(document).on("click", ".add-to-reminder", function(e) {
+                e.preventDefault();
+                let med_id = $(this).data("med");
+                let phar = $(this).data("phar");
+                $("#med_id").val(med_id);
+                $("#phar_name").val(phar);
+            });
+
+            $(document).on("submit", "#reminder_form", function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
+                $.ajax({
+                    url: "ajax/reminder.php",
+                    method: "POST",
+                    data: formData,
+                    success: function(response) {
+                        let res = JSON.parse(response);
+                        if (res.status == 'success') {
+                            $("#ToastSuccess .toast-body").html(res.msg);
+                            $("#ToastSuccess").addClass("fade show");
+                            setTimeout(() => {
+                                $("input[type='time']").val("");
+                                $("#reminderModal").modal('hide');
+                                $("#ToastSuccess").removeClass("fade show");
+                            }, 1500);
+                        } else {
+                            $("#ToastDanger .toast-body").html(res.msg);
+                            $("#ToastDanger").addClass("fade show");
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

@@ -67,6 +67,11 @@ body main #medicines-list .content {
   width: 100%;
   min-height: 320px;
 }
+body main #medicines-list .content .add-to-reminder,
+body main #medicines-list .content .del-reminder {
+  right: 20px;
+  top: 20px;
+}
 body main #medicines-list .content .image {
   height: 200px;
   padding: 10px;

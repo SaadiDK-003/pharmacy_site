@@ -10,6 +10,8 @@ error_reporting(env("ERROR_REPORT"));
 $tailwind = env("TAILWIND");
 $alpineJs = env("ALPINE_JS");
 
+date_default_timezone_set("Asia/Karachi");
+
 // default
 $userName = '';
 $userEmail = '';

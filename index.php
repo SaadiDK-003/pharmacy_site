@@ -45,6 +45,40 @@ require_once 'core/database.php';
                         </div>
                   </div>
             </section>
+
+            <div class="container mt-4">
+                  <div id="medicines-list" class="row">
+
+                        <div class="col-12 mb-3">
+                              <h2 class="text-center">Recently Added</h2>
+                        </div>
+
+                        <?php $q_med =  $db->query("CALL `medicines_list_recent`()");
+                        if (mysqli_num_rows($q_med) > 0):
+                              while ($list_m = mysqli_fetch_object($q_med)): ?>
+
+                                    <div class="col-12 col-md-3 mb-3">
+                                          <div class="content">
+                                                <div class="image">
+                                                      <img src="<?= $list_m->img ?>" alt="a" width="" height="">
+                                                </div>
+                                                <div class="text-wrapper position-relative">
+                                                      <h5 class="btn btn-sm btn-secondary position-absolute"><?= $list_m->pharmacy_name ?></h5>
+                                                      <h4 class="fw-bold"><?= $list_m->medicine_name ?></h4>
+                                                      <div class="qty-price d-flex justify-content-between">
+                                                            <span class="qty">Quantity: <strong><?= $list_m->quantity ?></strong></span>
+                                                            <span class="price">Price: <strong>SR. <?= $list_m->price ?></strong></span>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+
+                        <?php endwhile;
+                        endif;
+                        $q_med->close();
+                        $db->next_result(); ?>
+                  </div>
+            </div>
       </main>
       <?php include_once 'includes/footer.php'; ?>
       <?php include_once 'includes/external_js.php'; ?>
