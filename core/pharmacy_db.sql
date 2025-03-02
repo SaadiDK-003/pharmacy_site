@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2025 at 09:07 PM
+-- Generation Time: Mar 02, 2025 at 09:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -153,6 +153,13 @@ CREATE TABLE `reminder` (
   `days` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `reminder`
+--
+
+INSERT INTO `reminder` (`id`, `user_id`, `med_id`, `phar_name`, `reminder_time_morning`, `reminder_time_afternoon`, `reminder_time_evening`, `reminder_time_night`, `days`) VALUES
+(56, 15, 7, 'Boone Drug', '07:40:00', '00:00:00', '00:00:00', '01:39:00', 'Monday,Tuesday');
+
 -- --------------------------------------------------------
 
 --
@@ -181,7 +188,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `phone`, `dob`, `address`, `diseases`, `experience`, `phar_id`, `reminder_ids`, `status`) VALUES
 (1, 'admin', 'admin@gmail.com', '4297f44b13955235245b2497399d7a93', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1'),
-(15, 'patient', 'patient@gmail.com', '4297f44b13955235245b2497399d7a93', 'patient', '12312345', '2025-02-15', 'asdasd', 'Tooth Issue.', '', 999, NULL, '1'),
+(15, 'patient', 'patient@gmail.com', '3731eb6708529b82d1af35a1f0a51417', 'patient', '12312345', '2025-02-15', 'asdasd', 'Tooth Issue.', '', 999, NULL, '1'),
 (16, 'pharmacist', 'pharmacist@gmail.com', '4297f44b13955235245b2497399d7a93', 'pharmacist', '123123456', '2017-07-06', 'hey', '', '10 years of experience', 1, NULL, '1'),
 (17, 'pharmacist2', 'pharmacist2@gmail.com', '4297f44b13955235245b2497399d7a93', 'pharmacist', '123123456', '2017-07-06', 'hey', '', '10 years of experience', 2, NULL, '1');
 
@@ -237,7 +244,7 @@ ALTER TABLE `pharmacy`
 -- AUTO_INCREMENT for table `reminder`
 --
 ALTER TABLE `reminder`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `users`
