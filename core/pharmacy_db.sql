@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2025 at 03:15 AM
+-- Generation Time: Mar 02, 2025 at 01:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -109,7 +109,7 @@ CREATE TABLE `medicines` (
 INSERT INTO `medicines` (`id`, `medicine_name`, `quantity`, `price`, `img`, `exp_date`, `user_id`) VALUES
 (7, 'Adderall', 8, 5, './img/medicine/Adderall.png', '2025-03-05', 17),
 (9, 'Entresto', 10, 9, './img/medicine/Entresto.png', '2025-03-05', 16),
-(10, 'Amlodipine', 20, 12, './img/medicine/Amlodipine_Besylate.png', '2025-03-12', 16);
+(10, 'Amlodipine', 8, 25, './img/medicine/Amlodipine_Besylate.png', '2025-03-13', 16);
 
 -- --------------------------------------------------------
 
@@ -229,7 +229,7 @@ ALTER TABLE `pharmacy`
 -- AUTO_INCREMENT for table `reminder`
 --
 ALTER TABLE `reminder`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `users`

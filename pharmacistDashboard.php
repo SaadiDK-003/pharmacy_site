@@ -80,9 +80,14 @@ if (($userStatus == '0' && $userRole == 'pharmacist') || $userRole != 'pharmacis
             <!-- Show Added Medicines -->
             <div class="row mt-5">
                 <div class="col-12">
-                    <?php if (isset($_POST['e_submit'])) {
-                        update_medicine($_POST, $_FILES);
-                    } ?>
+                    <?php
+                    if (isset($_POST['e_submit'])) {
+                        update_medicine($_POST);
+                    }
+                    if (isset($_POST['e_img_submit'])) {
+                        update_medicine_img($_POST, $_FILES);
+                    }
+                    ?>
                 </div>
                 <div class="col-12">
                     <table id="medicine" class="table table-striped table-bordered text-center align-middle">
@@ -109,7 +114,10 @@ if (($userStatus == '0' && $userRole == 'pharmacist') || $userRole != 'pharmacis
                                         <td><?= $list_m->price ?></td>
                                         <td><?= $list_m->exp_date ?></td>
                                         <td>
+                                            <!-- update content -->
                                             <a href="#!" data-id="<?= $list_m->id ?>" class="btn btn-sm btn-primary edit-med" data-bs-toggle="modal" data-bs-target="#editMedicine"><i class="fas fa-pencil"></i></a>
+                                            <!-- update img -->
+                                            <a href="#!" data-id="<?= $list_m->id ?>" class="btn btn-sm btn-primary edit-med-img" data-bs-toggle="modal" data-bs-target="#editMedicineImage"><i class="fas fa-image"></i></a>
                                             <a href="#!" data-id="<?= $list_m->id ?>" class="btn btn-sm btn-danger del-med" data-table="medicines" data-msg="Medicine"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -139,9 +147,9 @@ if (($userStatus == '0' && $userRole == 'pharmacist') || $userRole != 'pharmacis
     <div class="modal fade" id="editMedicine" tabindex="-1" aria-labelledby="editMedicineLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form id="upd_med_form" method="post" enctype="multipart/form-data">
+                <form id="upd_med_form" method="post">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="editMedicineLabel">Updata Medicine</h1>
+                        <h1 class="modal-title fs-5" id="editMedicineLabel">Updata Medicine Content</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -152,28 +160,22 @@ if (($userStatus == '0' && $userRole == 'pharmacist') || $userRole != 'pharmacis
                                     <input type="text" name="e_medicine_name" id="e_medicine_name" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-3 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="e_medicine_qty" class="form-label">Quantity</label>
                                     <input type="number" min="1" name="e_medicine_qty" id="e_medicine_qty" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-3 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="e_medicine_price" class="form-label">Price</label>
                                     <input type="number" min="1" name="e_medicine_price" id="e_medicine_price" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-5 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="e_medicine_exp" class="form-label">Expiry Date</label>
                                     <input type="date" name="e_medicine_exp" id="e_medicine_exp" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-7 mb-3">
-                                <div class="form-group">
-                                    <label for="e_medicine_img" class="form-label">Picture</label>
-                                    <input type="file" name="e_medicine_img" id="e_medicine_img" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -188,6 +190,37 @@ if (($userStatus == '0' && $userRole == 'pharmacist') || $userRole != 'pharmacis
             </div>
         </div>
     </div>
+
+
+    <!-- Edit Medicine Image Modal -->
+    <div class="modal fade" id="editMedicineImage" tabindex="-1" aria-labelledby="editMedicineImageLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <form id="upd_med_img_form" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editMedicineImageLabel">Updata Medicine Image</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <div class="form-group">
+                                    <label for="e_medicine_img" class="form-label">Picture</label>
+                                    <input type="file" name="e_medicine_img" id="e_medicine_img" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="hidden" name="med_img_id" id="med_img_id">
+                        <button type="submit" name="e_img_submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <?php include_once 'includes/footer.php'; ?>
     <?php include 'includes/external_js.php'; ?>
@@ -216,6 +249,12 @@ if (($userStatus == '0' && $userRole == 'pharmacist') || $userRole != 'pharmacis
                         $("#old_img").val(res.img);
                     }
                 });
+            });
+
+            $(document).on("click", ".edit-med-img", function(e) {
+                e.preventDefault();
+                let med_id = $(this).data("id");
+                $("#med_img_id").val(med_id);
             });
 
             $(document).on("click", ".del-med", function(e) {

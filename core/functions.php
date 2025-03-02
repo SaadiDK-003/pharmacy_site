@@ -188,12 +188,69 @@ function addMedicine($POST, $FILE, $id)
 }
 
 
-function update_medicine($POST, $FILE)
+function update_medicine($POST)
 {
+      global $db;
+
+      $targetFilePath = '';
+      $msg = '';
+      $mName = $POST['e_medicine_name'];
+      $qty = $POST['e_medicine_qty'];
+      $price = $POST['e_medicine_price'];
+      $exp_date = $POST['e_medicine_exp'];
+      $medID = $POST['med_id'];
+
+
+      $targetFilePath = $POST['old_img'];
+      $upd_med = $db->query("UPDATE `medicines` SET `medicine_name`='$mName', `quantity`='$qty', `price`='$price', `img`='$targetFilePath', `exp_date`='$exp_date' WHERE `id`='$medID'");
+
+      if ($upd_med) {
+            $msg = '<h4 class="text-center alert alert-success">Medicine content has been updated.</h4>
+                  <script>
+                        setTimeout(function(){
+                              window.location.href = "./pharmacistDashboard.php";
+                        },1800);
+                  </script>
+                  ';
+      }
+
+      echo $msg;
+}
+
+
+function update_medicine_img($POST, $FILE)
+{
+      global $db;
+      $targetDir = './img/medicine/';
+      $msg = '';
+      $medID = $POST['med_img_id'];
 
       if (!empty($FILE['e_medicine_img']['name'])) {
-            echo 'has file';
-      } else {
-            echo 'no file';
+            $fileName = basename($FILE["e_medicine_img"]["name"]);
+            $targetFilePath = $targetDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+            //allow certain file formats
+            $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'webp');
+
+            if (in_array($fileType, $allowTypes)) {
+
+                  if (move_uploaded_file($FILE["e_medicine_img"]["tmp_name"], $targetFilePath)) {
+                        $upd_img = $db->query("UPDATE `medicines` SET `img`='$targetFilePath' WHERE `id`='$medID'");
+                        if ($upd_img) {
+                              $msg = '<h4 class="text-center alert alert-success">Image has been updated.</h4>
+                              <script>
+                                    setTimeout(function(){
+                                          window.location.href = "./pharmacistDashboard.php";
+                                    },1800);
+                              </script>
+                              ';
+                        }
+                  }
+            } else {
+                  $msg = '<h4 class="text-center alert alert-danger">Only jpg, png, jpeg, gif and webp allowed.</h4>';
+            }
       }
+
+      echo $msg;
 }

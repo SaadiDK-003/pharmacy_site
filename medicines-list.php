@@ -31,9 +31,11 @@ if (!isLoggedIn()) {
 
                         <div class="col-12 col-md-3 mb-3">
                             <div class="content position-relative">
-                                <a href="#!" data-bs-toggle="modal" data-bs-target="#reminderModal" class="add-to-reminder btn btn-danger btn-sm rounded-circle position-absolute" data-med="<?= $list_m->med_id ?>" data-usr="<?= $userid ?>" data-phar="<?= $list_m->pharmacy_name ?>">
-                                    <i class="fas fa-bell"></i>
-                                </a>
+                                <?php if ($userRole == 'patient'): ?>
+                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#reminderModal" class="add-to-reminder btn btn-danger btn-sm rounded-circle position-absolute" data-med="<?= $list_m->med_id ?>" data-usr="<?= $userid ?>" data-phar="<?= $list_m->pharmacy_name ?>">
+                                        <i class="fas fa-bell"></i>
+                                    </a>
+                                <?php endif; ?>
                                 <div class="image">
                                     <img src="<?= $list_m->img ?>" alt="a" width="" height="">
                                 </div>
