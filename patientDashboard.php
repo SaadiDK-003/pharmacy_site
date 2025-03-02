@@ -144,7 +144,7 @@ if (($userStatus == '0' && $userRole == 'patient') || $userRole != 'patient') {
                 }
                 let diffMinutes = (reminderTime - currentTime) / 60000;
                 console.log(diffMinutes)
-                if (diffMinutes > 0 && diffMinutes <= 5) {
+                if (diffMinutes > 0 && diffMinutes <= <?= $reminderTime ?>) {
                     $(e).parents('.qty-price').addClass("highlight");
                     $(e).parent().parent().addClass('btn-danger');
                 }

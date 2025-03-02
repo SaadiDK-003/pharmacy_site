@@ -9,6 +9,7 @@ function env($value)
 error_reporting(env("ERROR_REPORT"));
 $tailwind = env("TAILWIND");
 $alpineJs = env("ALPINE_JS");
+$reminderTime = env("REMINDER_TIME");
 
 date_default_timezone_set("Asia/Karachi");
 
