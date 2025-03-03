@@ -39,6 +39,15 @@ body header {
   background-color: var(--bg-primary);
   min-height: 80px;
 }
+body header .reminder-bell span {
+  width: 25px;
+  height: 25px;
+  top: -12px;
+  right: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 body main {
   min-height: 1000px;
 }
