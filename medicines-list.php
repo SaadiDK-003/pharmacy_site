@@ -88,7 +88,7 @@ if (!isLoggedIn()) {
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="days" class="form-label">Select Days</label>
-                                <select name="days[]" id="days" multiple class="form-select">
+                                <select name="days[]" id="days" multiple class="form-select" required>
                                     <option value="Monday">Monday</option>
                                     <option value="Tuesday">Tuesday</option>
                                     <option value="Wednesday">Wednesday</option>
@@ -144,12 +144,18 @@ if (!isLoggedIn()) {
                                 $("#reminderModal").modal('hide');
                                 $("#ToastSuccess").removeClass("fade show");
                             }, 1500);
-                        } else {
+                        } else if (res.status == 'error') {
                             $("#ToastDanger .toast-body").html(res.msg);
                             $("#ToastDanger").addClass("fade show");
                             setTimeout(() => {
                                 $("input[type='time']").val("");
                                 $("#reminderModal").modal('hide');
+                                $("#ToastDanger").removeClass("fade show");
+                            }, 1500);
+                        } else {
+                            $("#ToastDanger .toast-body").html(res.msg);
+                            $("#ToastDanger").addClass("fade show");
+                            setTimeout(() => {
                                 $("#ToastDanger").removeClass("fade show");
                             }, 1500);
                         }

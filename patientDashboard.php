@@ -49,7 +49,7 @@ if (($userStatus == '0' && $userRole == 'patient') || $userRole != 'patient') {
                                     </div>
                                     <hr>
                                     <h6>Medicine to take <strong>Days</strong>:</h6>
-                                    <div class="days d-flex gap-2">
+                                    <div class="days d-flex flex-wrap gap-2">
                                         <?php $days_arr = explode(',', $list_m->days);
                                         foreach ($days_arr as $value) {
                                             echo '<span class="btn btn-sm btn-success">' . $value . '</span>';

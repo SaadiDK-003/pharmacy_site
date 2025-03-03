@@ -3,7 +3,12 @@
 require_once '../core/database.php';
 
 if (isset($_POST['med_id']) && isset($_POST['intake_time_mor'])):
-
+    
+    if (empty($_POST['intake_time_mor']) && empty($_POST['intake_time_aft']) && empty($_POST['intake_time_eve']) && empty($_POST['intake_time_nig'])):
+        echo json_encode(["status" => "warning", "msg" => "Please select at least one time."]);
+        exit();
+    endif;
+    
     $msg = '';
     $days = '';
     $medID = $_POST['med_id'];
