@@ -20,8 +20,8 @@ require_once 'core/database.php';
             <section class="hero d-flex align-items-center justify-content-center">
                   <div class="container">
                         <div class="row">
-                              <div class="col-12 col-md-6">
-                                    <div class="content text-white">
+                              <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                    <div class="content text-white p-2 p-md-0">
                                           <h1 class="ff_livvic"><?= env('TITLE') ?></h1>
                                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos magnam omnis fuga provident quis obcaecati doloribus dolorum reprehenderit, quas veritatis!</p>
                                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe pariatur odio esse consequuntur magni, perspiciatis a. Quibusdam quas voluptatum nisi, quis obcaecati quisquam iusto veniam.</p>
@@ -29,7 +29,7 @@ require_once 'core/database.php';
                                           <a href="./printMedicine.php" class="btn btn-secondary">Print List</a>
                                     </div>
                               </div>
-                              <div class="col-12 col-md-6">
+                              <div class="col-12 col-md-6 mb-3 mb-md-0">
                                     <div class="hero_slider owl-carousel">
                                           <div class="item">
                                                 <img src="img/201-800x350.jpg" alt="img-1">

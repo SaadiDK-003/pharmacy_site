@@ -1,10 +1,10 @@
 <?php include_once 'reminders_count.php'; ?>
 <header class="d-flex align-items-center">
-      <div class="container d-flex align-items-center justify-content-between">
+      <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
             <a class="text-decoration-none" href="./">
                   <h3 class="ff_livvic text-white"><?= env("TITLE") ?></h3>
             </a>
-            <div class="buttons-wrapper d-flex align-items-center gap-4">
+            <div class="buttons-wrapper d-flex align-items-center justify-content-center gap-4">
                   <?php if (isLoggedIn()): ?>
                         <?php if ($userRole == 'admin'): ?>
                               <a href="./adminDashboard.php" class="btn btn-primary">Dashboard</a>
