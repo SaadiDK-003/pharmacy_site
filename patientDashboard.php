@@ -126,7 +126,7 @@ if (($userStatus == '0' && $userRole == 'patient') || $userRole != 'patient') {
             // Medicine Reminder Alert Work
             let all_reminders = $("#medicines-list").find(".reminder_time");
             let total = 0;
-            let reminderThreshold = <?= $reminderTime ?>;
+            let reminderThreshold = <?= $reminderThreshold ?>;
             all_reminders.each((i, e) => {
 
                 let reminderTimeStr = $(e).html().trim();

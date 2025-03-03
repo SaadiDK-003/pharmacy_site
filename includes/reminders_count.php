@@ -1,5 +1,4 @@
 <?php
-$reminderThreshold = 5;
 $totalReminders = 0;
 $currentTime = time();
 
