@@ -25,7 +25,7 @@ if (isset($_POST['med_id']) && isset($_POST['intake_time_mor'])):
     endif;
     $phar_name = $_POST['phar_name'];
 
-    $checkExists = $db->query("SELECT `med_id` FROM `reminder` WHERE `med_id`='$medID'");
+    $checkExists = $db->query("SELECT `med_id` FROM `reminder` WHERE `user_id`='$userid' AND `med_id`='$medID'");
 
     if (mysqli_num_rows($checkExists) > 0) :
         $msg = json_encode(["status" => "error", "msg" => "Already added, check your Dashboard."]);
