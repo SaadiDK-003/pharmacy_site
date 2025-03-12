@@ -20,44 +20,46 @@ if (!isLoggedIn()) {
         <div class="container mt-5">
             <div class="row">
                 <div class="col-12">
-                    <table id="example" class="table table-striped table-bordered text-center align-middle" style="width:100%">
+                    <table id="example" class="table table-striped table-bordered text-center align-middle"
+                        style="width:100%">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th class="no-print">Image</th>
-                                <th>Quantity</th>
-                                <th>Exp Date</th>
-                                <th>Price</th>
-                                <th>Pharmacist Name</th>
+                                <th class="text-center">Name</th>
+                                <th class="no-print text-center">Image</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Exp Date</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Pharmacist Name</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $q_med =  $db->query("CALL `medicines_list`()");
+                            <?php $q_med = $db->query("CALL `medicines_list`()");
                             if (mysqli_num_rows($q_med) > 0):
                                 while ($list_m = mysqli_fetch_object($q_med)): ?>
                                     <tr>
-                                        <td><?= $list_m->medicine_name ?></td>
-                                        <td class="no-print">
-                                            <img src="<?= $list_m->img ?>" alt="medicine_<?= $list_m->med_id ?>" width="60" height="60" class="mx-auto">
+                                        <td class="text-center"><?= $list_m->medicine_name ?></td>
+                                        <td class="no-print text-center">
+                                            <img src="<?= $list_m->img ?>" alt="medicine_<?= $list_m->med_id ?>" width="60"
+                                                height="60" class="mx-auto">
                                         </td>
-                                        <td><?= $list_m->quantity ?></td>
-                                        <td><?= $list_m->exp_date ?></td>
-                                        <td><?= $list_m->price ?></td>
-                                        <td><?= $list_m->username ?></td>
+                                        <td class="text-center"><?= $list_m->quantity ?></td>
+                                        <td class="text-center"><?= $list_m->exp_date ?></td>
+                                        <td class="text-center"><?= $list_m->price ?></td>
+                                        <td class="text-center"><?= $list_m->username ?></td>
                                     </tr>
-                            <?php endwhile;
+                                <?php endwhile;
                             endif;
                             $q_med->close();
                             $db->next_result(); ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Name</th>
-                                <th class="no-print">Image</th>
-                                <th>Quantity</th>
-                                <th>Exp Date</th>
-                                <th>Price</th>
-                                <th>Pharmacist Name</th>
+                                <th class="text-center">Name</th>
+                                <th class="no-print text-center">Image</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Exp Date</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Pharmacist Name</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -68,11 +70,14 @@ if (!isLoggedIn()) {
     <?php include_once 'includes/footer.php'; ?>
     <?php include_once 'includes/external_js.php'; ?>
     <script>
-        $(document).ready(function() {
-            new DataTable('#example', {
-                layout: {
-                    topStart: {
-                        buttons: [{
+        $(document).ready(function () {
+            let options = '';
+            <?php if ($userRole != 'patient'): ?>
+                options = {
+                    ordering: false,
+                    layout: {
+                        topStart: {
+                            buttons: [{
                                 extend: 'print',
                                 text: 'Print all',
                                 exportOptions: {
@@ -90,11 +95,15 @@ if (!isLoggedIn()) {
                                     columns: [0, 2, 3, 4]
                                 }
                             }
-                        ]
-                    }
-                },
-                select: true
-            });
+                            ]
+                        }
+                    },
+                    select: true
+                }
+            <?php else: ?>
+                options = [];
+            <?php endif; ?>
+            new DataTable('#example', options);
         });
     </script>
 </body>
