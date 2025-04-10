@@ -32,7 +32,7 @@ if (!isLoggedIn()) {
                         <div class="col-12 col-md-3 mb-3">
                             <div class="content position-relative">
                                 <?php if ($userRole == 'patient'): ?>
-                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#reminderModal" class="add-to-reminder btn btn-danger btn-sm rounded-circle position-absolute" data-med="<?= $list_m->med_id ?>" data-usr="<?= $userid ?>" data-phar="<?= $list_m->pharmacy_name ?>">
+                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#reminderModal" class="add-to-reminder btn btn-danger btn-sm rounded-circle position-absolute" data-med="<?= $list_m->med_id ?>" data-usr="<?= $userid ?>" data-phar="<?= $list_m->phr_id ?>" data-pharid="<?= $list_m->u_id ?>">
                                         <i class="fas fa-bell"></i>
                                     </a>
                                 <?php endif; ?>
@@ -108,6 +108,7 @@ if (!isLoggedIn()) {
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <input type="hidden" name="med_id" id="med_id">
                         <input type="hidden" name="phar_name" id="phar_name">
+                        <input type="hidden" name="pharid" id="pharid">
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
@@ -123,8 +124,10 @@ if (!isLoggedIn()) {
                 e.preventDefault();
                 let med_id = $(this).data("med");
                 let phar = $(this).data("phar");
+                let pharid = $(this).data("pharid");
                 $("#med_id").val(med_id);
                 $("#phar_name").val(phar);
+                $("#pharid").val(pharid);
             });
 
             $(document).on("submit", "#reminder_form", function(e) {
