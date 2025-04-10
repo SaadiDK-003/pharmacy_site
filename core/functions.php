@@ -108,6 +108,7 @@ function Update_Profile(array $POST, string $role)
       if ($role == 'pharmacist') {
             $experience = $POST['experience'];
             $pharmacy_id = $POST['pharmacy_id'];
+            $db->query("UPDATE `reminder` SET `phar_name`='$pharmacy_id' WHERE `phar_id`='$id'");
       } else {
             $diseases = $POST['diseases'];
       }
