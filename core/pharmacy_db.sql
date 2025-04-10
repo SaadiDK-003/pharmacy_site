@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2025 at 11:09 AM
+-- Generation Time: Apr 10, 2025 at 10:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,7 @@ r.reminder_time_afternoon AS 'afternoon_time',
 r.reminder_time_evening AS 'evening_time',
 r.reminder_time_night AS 'night_time',
 r.days,
-r.phar_name,
+p.pharmacy_name AS 'phar_name',
 m.medicine_name,
 m.quantity,
 m.price,
@@ -49,6 +49,7 @@ m.img,
 m.exp_date
 FROM reminder r
 INNER JOIN medicines m ON r.med_id=m.id
+INNER JOIN pharmacy p ON r.phar_name=p.id
 WHERE r.user_id=user_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `medicines_list` ()   SELECT
@@ -111,9 +112,8 @@ CREATE TABLE `medicines` (
 --
 
 INSERT INTO `medicines` (`id`, `medicine_name`, `quantity`, `price`, `img`, `exp_date`, `user_id`) VALUES
-(7, 'Adderall', 8, 5, './img/medicine/Adderall.png', '2025-03-05', 17),
-(9, 'Entresto', 10, 9, './img/medicine/Entresto.png', '2025-03-05', 16),
-(10, 'Amlodipine', 8, 250, './img/medicine/Amlodipine_Besylate.png', '2025-03-13', 16);
+(11, 'med_1', 10, 5, './img/medicine/abc.png', '2025-04-25', 16),
+(12, 'med_2', 20, 8, './img/medicine/12_large.png', '2025-04-26', 17);
 
 -- --------------------------------------------------------
 
@@ -145,12 +145,13 @@ CREATE TABLE `reminder` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `med_id` int(11) NOT NULL,
-  `phar_name` varchar(255) DEFAULT NULL,
+  `phar_name` int(11) DEFAULT NULL,
   `reminder_time_morning` time DEFAULT NULL,
   `reminder_time_afternoon` time DEFAULT NULL,
   `reminder_time_evening` time DEFAULT NULL,
   `reminder_time_night` time DEFAULT NULL,
-  `days` text DEFAULT NULL
+  `days` text DEFAULT NULL,
+  `phar_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -182,7 +183,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `phone`, `dob`, `address`, `diseases`, `experience`, `phar_id`, `reminder_ids`, `status`) VALUES
 (1, 'admin', 'admin@gmail.com', '4297f44b13955235245b2497399d7a93', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1'),
 (15, 'patient', 'patient@gmail.com', '4297f44b13955235245b2497399d7a93', 'patient', '12312345', '2025-02-15', 'asdasd', 'Tooth Issue.', '', 999, NULL, '1'),
-(16, 'pharmacist', 'pharmacist@gmail.com', '4297f44b13955235245b2497399d7a93', 'pharmacist', '123123456', '2017-07-06', 'hey', '', '10 years of experience', 1, NULL, '1'),
+(16, 'pharmacist', 'pharmacist@gmail.com', '4297f44b13955235245b2497399d7a93', 'pharmacist', '123123456', '2017-07-06', 'hey', '', '10 years of experience', 2, NULL, '1'),
 (17, 'pharmacist2', 'pharmacist2@gmail.com', '4297f44b13955235245b2497399d7a93', 'pharmacist', '123123456', '2017-07-06', 'hey', '', '10 years of experience', 2, NULL, '1');
 
 --
@@ -208,7 +209,8 @@ ALTER TABLE `pharmacy`
 ALTER TABLE `reminder`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `reminder_ibfk_2` (`med_id`);
+  ADD KEY `reminder_ibfk_2` (`med_id`),
+  ADD KEY `phar_name` (`phar_name`);
 
 --
 -- Indexes for table `users`
@@ -225,7 +227,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `medicines`
 --
 ALTER TABLE `medicines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `pharmacy`
@@ -237,7 +239,7 @@ ALTER TABLE `pharmacy`
 -- AUTO_INCREMENT for table `reminder`
 --
 ALTER TABLE `reminder`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -260,7 +262,8 @@ ALTER TABLE `medicines`
 --
 ALTER TABLE `reminder`
   ADD CONSTRAINT `reminder_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `reminder_ibfk_2` FOREIGN KEY (`med_id`) REFERENCES `medicines` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `reminder_ibfk_2` FOREIGN KEY (`med_id`) REFERENCES `medicines` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reminder_ibfk_3` FOREIGN KEY (`phar_name`) REFERENCES `pharmacy` (`id`);
 
 --
 -- Constraints for table `users`
