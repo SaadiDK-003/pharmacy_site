@@ -29,6 +29,7 @@ if (!isLoggedIn()) {
                                 <th class="text-center">Quantity</th>
                                 <th class="text-center">Exp Date</th>
                                 <th class="text-center">Price</th>
+                                <th class="text-center">Pharmacy Name</th>
                                 <th class="text-center">Pharmacist Name</th>
                             </tr>
                         </thead>
@@ -45,6 +46,7 @@ if (!isLoggedIn()) {
                                         <td class="text-center"><?= $list_m->quantity ?></td>
                                         <td class="text-center"><?= $list_m->exp_date ?></td>
                                         <td class="text-center"><?= $list_m->price ?></td>
+                                        <td class="text-center"><?= $list_m->pharmacy_name ?></td>
                                         <td class="text-center"><?= $list_m->username ?></td>
                                     </tr>
                                 <?php endwhile;
@@ -85,14 +87,14 @@ if (!isLoggedIn()) {
                                         selected: null
                                     },
                                     // columns: ':not(.no-print)'
-                                    columns: [0, 2, 3, 4]
+                                    columns: [0, 2, 3, 4, 5]
                                 }
                             },
                             {
                                 extend: 'print',
                                 text: 'Print selected',
                                 exportOptions: {
-                                    columns: [0, 2, 3, 4]
+                                    columns: [0, 2, 3, 4, 5]
                                 }
                             }
                             ]
